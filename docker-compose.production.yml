@@ -4,8 +4,6 @@ volumes:
   production_django_media: {}
   production_redis_data: {}
   
-
-
 services:
   django: &django
     build:
@@ -32,8 +30,7 @@ services:
     volumes:
       - production_traefik:/etc/traefik/acme
     ports:
-      - '0.0.0.0:80:80'
-      - '0.0.0.0:443:443'
+      - '0.0.0.0:8000:8000'
       - '0.0.0.0:5555:5555'
 
   redis:

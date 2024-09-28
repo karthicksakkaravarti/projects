@@ -4,7 +4,7 @@ log:
 entryPoints:
   web:
     # http
-    address: ':80'
+    address: ':8000'
 
   flower:
     address: ':5555'
