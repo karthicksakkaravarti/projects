@@ -12,7 +12,7 @@ entryPoints:
 http:
   routers:
     web-router:
-      rule: 'Host(`localhost`)'  # Changed from `localhost.com` to `localhost`
+      rule: 'Host(`projectsai.sakkaravarthi.com`)'  # Changed from `localhost.com` to `localhost`
       entryPoints:
         - web
       middlewares:
@@ -21,14 +21,14 @@ http:
       tls: false
 
     flower-router:
-      rule: 'Host(`localhost`)'  # Changed from `localhost.com` to `localhost`
+      rule: 'Host(`projectsai.sakkaravarthi.com`)'  # Changed from `localhost.com` to `localhost`
       entryPoints:
         - flower
       service: flower
       tls: false
 
     web-media-router:
-      rule: 'Host(`localhost`) && PathPrefix(`/media/`)'  # Changed from `localhost.com` to `localhost`
+      rule: 'Host(`projectsai.sakkaravarthi.com`) && PathPrefix(`/media/`)'  # Changed from `localhost.com` to `localhost`
       entryPoints:
         - web
       middlewares:
