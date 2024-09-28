@@ -12,7 +12,7 @@ entryPoints:
 http:
   routers:
     web-router:
-      rule: 'Host(`projectsai.sakkaravarthi.com`)'  # Changed from `localhost.com` to `localhost`
+      rule: 'PathPrefix(`/`)'  # Allow any host with any path starting with '/'
       entryPoints:
         - web
       middlewares:
@@ -21,14 +21,14 @@ http:
       tls: false
 
     flower-router:
-      rule: 'Host(`projectsai.sakkaravarthi.com`)'  # Changed from `localhost.com` to `localhost`
+      rule: 'PathPrefix(`/`)'  # Allow any host with any path starting with '/'
       entryPoints:
         - flower
       service: flower
       tls: false
 
     web-media-router:
-      rule: 'Host(`projectsai.sakkaravarthi.com`) && PathPrefix(`/media/`)'  # Changed from `localhost.com` to `localhost`
+      rule: 'PathPrefix(`/media/`)'  # Allow any host with path prefix '/media/'
       entryPoints:
         - web
       middlewares:
