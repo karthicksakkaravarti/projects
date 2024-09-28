@@ -1,69 +1,43 @@
 log:
-  level: INFO
+  level: DEBUG
 
 entryPoints:
   web:
     # http
     address: ':80'
-    http:
-      # https://doc.traefik.io/traefik/routing/entrypoints/#entrypoint
-      redirections:
-        entryPoint:
-          to: web-secure
-
-  web-secure:
-    # https
-    address: ':443'
 
   flower:
     address: ':5555'
 
-certificatesResolvers:
-  letsencrypt:
-    # https://doc.traefik.io/traefik/https/acme/#lets-encrypt
-    acme:
-      email: 'karthicksakkaravarthi@gmail.com'
-      storage: /etc/traefik/acme/acme.json
-      # https://doc.traefik.io/traefik/https/acme/#httpchallenge
-      httpChallenge:
-        entryPoint: web
-
 http:
   routers:
-    web-secure-router:
-      rule: 'Host(`projects.sakkaravarthi.com`)'
+    web-router:
+      rule: 'Host(`localhost`)'  # Changed from `localhost.com` to `localhost`
       entryPoints:
-        - web-secure
+        - web
       middlewares:
         - csrf
       service: django
-      tls:
-        # https://doc.traefik.io/traefik/routing/routers/#certresolver
-        certResolver: letsencrypt
+      tls: false
 
-    flower-secure-router:
-      rule: 'Host(`projects.sakkaravarthi.com`)'
+    flower-router:
+      rule: 'Host(`localhost`)'  # Changed from `localhost.com` to `localhost`
       entryPoints:
         - flower
       service: flower
-      tls:
-        # https://doc.traefik.io/traefik/master/routing/routers/#certresolver
-        certResolver: letsencrypt
+      tls: false
 
     web-media-router:
-      rule: 'Host(`projects.sakkaravarthi.com`) && PathPrefix(`/media/`)'
+      rule: 'Host(`localhost`) && PathPrefix(`/media/`)'  # Changed from `localhost.com` to `localhost`
       entryPoints:
-        - web-secure
+        - web
       middlewares:
         - csrf
       service: django-media
-      tls:
-        certResolver: letsencrypt
+      tls: false
 
   middlewares:
     csrf:
-      # https://doc.traefik.io/traefik/master/middlewares/http/headers/#hostsproxyheaders
-      # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
       headers:
         hostsProxyHeaders: ['X-CSRFToken']
 
@@ -84,7 +58,6 @@ http:
           - url: http://nginx:80
 
 providers:
-  # https://doc.traefik.io/traefik/master/providers/file/
   file:
     filename: /etc/traefik/traefik.yml
     watch: true
