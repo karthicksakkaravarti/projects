@@ -1,6 +1,7 @@
 # ruff: noqa: ERA001, E501
 """Base settings to build other settings files upon."""
 
+import os
 from pathlib import Path
 
 import environ
@@ -9,6 +10,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # projects/
 APPS_DIR = BASE_DIR / "projects"
 env = environ.Env()
+# Addons apps
+ADDONS_APPS = BASE_DIR / "addons" / "apps"
+
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
@@ -82,14 +86,25 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "dynamic_preferences",
+
 ]
 
 LOCAL_APPS = [
     "projects.users",
+    "projects.installer",
+    "projects.setup",
+
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# Automatically register all apps in the 'apps' folder
+for app in os.listdir(ADDONS_APPS):
+    if os.path.isdir(os.path.join(ADDONS_APPS, app)):
+        INSTALLED_APPS.append(f'addons.apps.{app}')
+        
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -152,9 +167,13 @@ MIDDLEWARE = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-STATIC_URL = "/static/"
+STATIC_URL = "projects/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR / "static")]
+STATICFILES_DIRS = [
+    os.path.join(APPS_DIR, "static"),
+    os.path.join(BASE_DIR, 'dist', 'projects' ,'static'),
+    os.path.join(BASE_DIR, 'public'),
+]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -176,7 +195,7 @@ TEMPLATES = [
         # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # https://docs.djangoproject.com/en/dev/ref/settings/#dirs
-        "DIRS": [str(APPS_DIR / "templates")],
+        "DIRS": [str(APPS_DIR / "templates"), "dist"],
         # https://docs.djangoproject.com/en/dev/ref/settings/#app-dirs
         "APP_DIRS": True,
         "OPTIONS": {
@@ -191,6 +210,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "projects.users.context_processors.allauth_settings",
+                'dynamic_preferences.processors.global_preferences',
             ],
         },
     },
@@ -328,7 +348,16 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'EXCEPTION_HANDLER': 'config.helpers.Exception.custom_rest_exception_handler',
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'DEFAULT_VERSION': 'v1',
+    'ALLOWED_VERSIONS': ['v1'],
+    'VERSION_PARAM': 'version',
+    'DEFAULT_PAGINATION_CLASS': 'config.helpers.custom_pagination.CustomPageNumberPagination',
+    'PAGE_SIZE': 10
 }
+
+
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"

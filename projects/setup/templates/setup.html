@@ -1,0 +1,86 @@
+
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+  {% translate "App Setup" %}
+{% endblock head_title %}
+
+
+{% block inner %}
+
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+<!--          <img class="w-8 h-8 mr-2" src="" alt="logo">-->
+          {% translate "Setup" %}
+      </a>
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Tell us about app
+              </h1>
+              <div>{% if form.errors %}
+
+                <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                  </svg>
+                  <div>
+                    {{ form.errors }} 
+                  </div>
+                </div>
+                {% endif %}</div>
+              <form class="space-y-4 md:space-y-6" method="post" >
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                  <input type="hidden"
+                         name="{{ redirect_field_name }}"
+                         value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <div >
+                    <label for="id_app_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">App Name</label>
+                    <input required type="text" id="id_app_name" name="app_name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+        
+        
+                <div >
+                    <label for="id_app_logo" class="block text-sm font-medium text-gray-600">App Logo</label>
+                    <input type="file" id="id_app_logo" name="app_logo" class="mt-1">
+                </div>
+        
+                <div >
+                    <label for="id_app_favicon" class="block text-sm font-medium text-gray-600">App Favicon</label>
+                    <input type="file" id="id_app_favicon" name="app_favicon" class="mt-1">
+                </div>
+
+                <!-- <div>
+                  <label for="id_admin_username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Username</label>
+                  <input required type="text" id="id_admin_username" name="admin_username" class="... your existing classes ...">
+              </div> -->
+              
+              <div>
+                  <label for="id_admin_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Email</label>
+                  <input required type="email" id="id_admin_email" name="admin_email" class="... your existing classes ...">
+              </div>
+              
+              <div>
+                  <label for="id_admin_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Password</label>
+                  <input required type="password" id="id_admin_password" name="admin_password" class="... your existing classes ...">
+              </div>
+
+                 
+                  <button type="submit" class="w-full  bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Complete Setup</button>
+                
+
+              </form>
+           
+          </div>
+          
+      </div>
+  </div>
+</section>
+{% endblock inner %}

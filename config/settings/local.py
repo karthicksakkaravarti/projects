@@ -74,3 +74,8 @@ INSTALLED_APPS += ["django_extensions"]
 CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------
+# CSRF
+CSRF_COOKIE_HTTPONLY = False
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', default=['http://localhost:8080', 'http://localhost', 'http://localhost:8080/', 'http://localhost:8081','http://localhost:8000'])
