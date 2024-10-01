@@ -9,9 +9,8 @@ django-celery-beat==2.7.0  # https://github.com/celery/django-celery-beat
 flower==2.0.1  # https://github.com/mher/flower
 uvicorn[standard]==0.30.6  # https://github.com/encode/uvicorn
 uvicorn-worker==0.2.0  # https://github.com/Kludex/uvicorn-worker
-coreapi
-dynamic-preferences
-
+coreapi==2.3.3
+django-dynamic-preferences==1.16.0
 # Django
 # ------------------------------------------------------------------------------
 django==5.0.9  # pyup: < 5.1  # https://www.djangoproject.com/
