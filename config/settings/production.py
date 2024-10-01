@@ -181,3 +181,4 @@ SPECTACULAR_SETTINGS["SERVERS"] = [
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------
+CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS')
