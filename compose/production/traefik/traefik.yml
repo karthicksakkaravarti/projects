@@ -17,6 +17,7 @@ http:
         - web
       middlewares:
         - csrf
+        - headers-forwarding
       service: django
       tls: false
 
@@ -40,6 +41,12 @@ http:
     csrf:
       headers:
         hostsProxyHeaders: ['X-CSRFToken']
+
+    headers-forwarding:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Host: "Host(`{host:.+}`)"
+          X-Forwarded-Proto: "https"
 
   services:
     django:
