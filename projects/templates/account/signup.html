@@ -1,6 +1,8 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load widget_tweaks %}
+
 
 {% block head_title %}
   {% translate "Signup" %}
@@ -20,7 +22,7 @@
             {{ field.label }}
           </label>
           <div class="mt-1">
-            {{ field.as_widget|default_if_none:field }}
+            {{ field|add_class:"w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
           </div>
           {% if field.help_text %}
             <p class="text-sm text-gray-500 mt-1">{{ field.help_text }}</p>

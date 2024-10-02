@@ -19,7 +19,7 @@ from rest_framework import serializers
 from django.db.utils import ProgrammingError
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class GetStartedView(LoginRequiredMixin, TemplateView):
     """Home view """
     template_name = 'index.html'
 
@@ -28,13 +28,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
         return super().get(request, *args, **kwargs)
     
 urlpatterns = [
-    path("", HomeView.as_view(), name="home"),
-    path(
-        "about/",
-        TemplateView.as_view(template_name="pages/about.html"),
-        name="about",
-    ),
-    path("features/", TemplateView.as_view(template_name='pages/about.html'), name="features"),
+    path("app/", GetStartedView.as_view(), name="get_started"),
+    path("", TemplateView.as_view(template_name='pages/about.html'), name="home"),
 
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
