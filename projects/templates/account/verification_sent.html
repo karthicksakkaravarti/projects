@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+  {% translate "Verify Your E-mail Address" %}
+{% endblock head_title %}
+
+{% block inner %}
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">
+      {% translate "Verify Your E-mail Address" %}
+    </h1>
+    <p class="text-lg text-gray-600">
+      {% blocktranslate %}
+      We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.
+      {% endblocktranslate %}
+    </p>
+  </div>
+{% endblock inner %}

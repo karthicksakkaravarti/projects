@@ -15,7 +15,7 @@
             "django": true,
             "autoStartBrowser": false,
             "env": {
-                "DATABASE_URL": "postgres://postgres:postgres@localhost:5433/projects",
+                "DATABASE_URL": "postgres://postgres:postgres@localhost:5432/projects",
                 "CELERY_BROKER_URL": "",
                 "USE_DOCKER": "No",
                 "SENTRY_DSN": "",
@@ -33,7 +33,7 @@
             "django": true,
             "autoStartBrowser": false,
             "env": {
-                "DATABASE_URL": "postgres://postgres:postgres@localhost:5433/projects",
+                "DATABASE_URL": "postgres://postgres:postgres@localhost:5432/projects",
                 "CELERY_BROKER_URL": "",
                 "USE_DOCKER": "No",
                 "SENTRY_DSN": ""
@@ -44,3 +44,9 @@
 }
 
 
+
+export DATABASE_URL="postgres://postgres:postgres@localhost:5432/projects"
+export CELERY_BROKER_URL=""
+export USE_DOCKER="No"
+export SENTRY_DSN=""
+export DJANGO_SETTINGS_MODULE="config.settings.local"

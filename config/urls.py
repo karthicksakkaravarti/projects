@@ -1,4 +1,6 @@
 # ruff: noqa
+import importlib
+import os
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -10,20 +12,32 @@ from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+from django.contrib.auth.mixins import LoginRequiredMixin
+from config.settings.base import ADDONS_APPS
+from projects.installer.rest_api import serializers as InstallerSerialisers
+from rest_framework import serializers
+from django.db.utils import ProgrammingError
 
+
+class GetStartedView(LoginRequiredMixin, TemplateView):
+    """Home view """
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs) :
+
+        return super().get(request, *args, **kwargs)
+    
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    path(
-        "about/",
-        TemplateView.as_view(template_name="pages/about.html"),
-        name="about",
-    ),
+    path("app/", GetStartedView.as_view(), name="get_started"),
+    path("", TemplateView.as_view(template_name='pages/about.html'), name="home"),
+
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("projects.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
+    path("", include("projects.installer.urls")),
+
     # ...
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
@@ -46,6 +60,32 @@ urlpatterns += [
     ),
 ]
 
+# Automatically include URL patterns from all apps in the 'apps' folder
+for app in os.listdir(ADDONS_APPS):
+    if os.path.isdir(os.path.join(ADDONS_APPS, app)):
+        try:
+
+            info = importlib.import_module(f'addons.apps.{app}.info')
+            serializer = InstallerSerialisers.ModuleImport(data=dict(info.module_info))
+            if serializer.is_valid(raise_exception=True):
+                app = serializer.save()
+                if app.is_installed:
+                    app_urls = importlib.import_module(f'addons.apps.{app.app_name}.urls')
+                    urlpatterns.append(path(f'addons/apps/{app.app_name}/', include(app_urls)))
+        except serializers.ValidationError as e:
+            print(str(e))
+            # Check for unique constraint violation and handle or ignore
+            if 'app_name' in e.detail or 'unique' in str(e.detail['app_name'][0]):
+                pass  # Ignore unique constraint error for app_name
+            else:
+                raise  # Re-raise any other validation errors           
+        except ProgrammingError as e:
+            # Handle the exception
+            print(f"Database error: {e}")
+        except ImportError as e:
+            print(str(e))
+            pass  # Module does not have a urls.py, skip it
+        
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.

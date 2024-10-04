@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+  {% translate "Verify Your E-mail Address" %}
+{% endblock head_title %}
+{% block inner %}
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">{% translate "Verify Your E-mail Address" %}</h1>
+    {% url 'account_email' as email_url %}
+    <p class="mb-4">
+      {% blocktranslate %}This part of the site requires us to verify that
+      you are who you claim to be. For this purpose, we require that you
+      verify ownership of your e-mail address. {% endblocktranslate %}
+    </p>
+    <p class="mb-4">
+      {% blocktranslate %}We have sent an e-mail to you for
+      verification. Please click on the link inside this e-mail. Please
+      contact us if you do not receive it within a few minutes.{% endblocktranslate %}
+    </p>
+    <p>
+      {% blocktranslate %}<strong class="font-semibold">Note:</strong> you can still <a href="{{ email_url }}" class="text-blue-600 hover:text-blue-800 underline">change your e-mail address</a>.{% endblocktranslate %}
+    </p>
+  </div>
+{% endblock inner %}

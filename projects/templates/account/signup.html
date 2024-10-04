@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+
+{% block head_title %}
+  {% translate "Signup" %}
+{% endblock head_title %}
+
+{% block inner %}
+  <div class="max-w-md mx-auto mt-8">
+    <h1 class="text-3xl font-bold mb-4">{% translate "Sign Up" %}</h1>
+    <p class="mb-4">
+      {% blocktranslate %}Already have an account? Then please <a href="{{ login_url }}" class="text-blue-600 hover:underline">sign in</a>.{% endblocktranslate %}
+    </p>
+    <form class="space-y-4" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-4">
+          <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+            {{ field.label }}
+          </label>
+          <div class="mt-1">
+            {{ field|add_class:"w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+          </div>
+          {% if field.help_text %}
+            <p class="text-sm text-gray-500 mt-1">{{ field.help_text }}</p>
+          {% endif %}
+          {% for error in field.errors %}
+            <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" type="submit">
+        {% translate "Sign Up" %} »
+      </button>
+    </form>
+  </div>
+{% endblock inner %}
