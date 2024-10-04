@@ -181,3 +181,8 @@ SPECTACULAR_SETTINGS["SERVERS"] = [
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
+    'https://projectsai.sakkaravarthi.com'
+])
+CSRF_COOKIE_NAME  = 'csrftoken'
+CSRF_COOKIE_HTTPONLY= False
