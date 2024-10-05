@@ -83,16 +83,6 @@ export default {
   setup() {
     const items = [
       { text: 'ALL' },
-      { text: 'Sales' },
-      { text: 'Services' },
-      { text: 'Accounting' },
-      { text: 'Inventory' },
-      { text: 'Manufacturing' },
-      { text: 'Website' },
-      { text: 'Marketing' },
-      { text: 'Human Resources' },
-      { text: 'Productive' },
-      { text: 'Administration' },
     ]
     const selectedItem = 0
     const search = ''

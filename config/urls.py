@@ -71,6 +71,7 @@ for app in os.listdir(ADDONS_APPS):
                 app = serializer.save()
                 if app.is_installed:
                     app_urls = importlib.import_module(f'addons.apps.{app.app_name}.urls')
+                    print(app_urls)
                     urlpatterns.append(path(f'addons/apps/{app.app_name}/', include(app_urls)))
         except serializers.ValidationError as e:
             print(str(e))

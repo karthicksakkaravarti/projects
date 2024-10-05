@@ -22,6 +22,18 @@
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                   Sign in to your account
               </h1>
+                  {% if form.errors %}
+                    <div class="error text-red-500">
+                      {% for field in form %}
+                        {% for error in field.errors %}
+                          <p class="text-sm">{{ error }}</p>
+                        {% endfor %}
+                      {% endfor %}
+                      {% for error in form.non_field_errors %}
+                        <p class="text-sm">{{ error }}</p>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
               <form class="space-y-4 md:space-y-6" method="post" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 {% if redirect_field_value %}
@@ -32,7 +44,7 @@
 
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
-                      <input type="email" name="login" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" required>
+                      <input type="email" name="login" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Email" required>
                   </div>
                   <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>

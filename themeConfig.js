@@ -32,18 +32,18 @@ const themeConfig = {
   },
   themes: {
     light: {
-      primary: '#45306E',
+      primary: '#007bff',
       accent: '#0d6efd',
-      secondary: '#F44336',
+      secondary: '#007bff',
       success: '#56CA00',
       info: '#16B1FF',
       warning: '#FFB400',
       error: '#FF4C51',
     },
     dark: {
-      primary: '#45306E',
+      primary: '#007bff',
       accent: '#0d6efd',
-      secondary: '#F44336',
+      secondary: '#007bff',
       success: '#56CA00',
       info: '#16B1FF',
       warning: '#FFB400',

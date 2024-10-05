@@ -86,6 +86,7 @@
           <slot name="filter-space"></slot>
         </div>
         <v-spacer></v-spacer>
+        
         <v-card-title
           small
           class="ma-0 pa-0"
@@ -103,8 +104,11 @@
             clearable
           ></v-text-field>
           <v-btn class="mb-3" icon small @click="get_list"><v-icon>mdi-refresh</v-icon></v-btn>
-
+          <slot name="top-right">
+          <b>hellow</b>
+        </slot>
         </v-card-title>
+        
       </v-toolbar>
     </template>
 

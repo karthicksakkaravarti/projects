@@ -7,6 +7,8 @@ import app from './app'
 
 
 import { UsersStore } from './Users'
+import { TodoStore } from '../../addons/apps/todo/frontend/store.js'
+import { ProjectStore } from '../../addons/apps/project/frontend/store.js'
 
 Vue.use(Vuex)
 
@@ -159,7 +161,7 @@ export default new Vuex.Store({
     },
     AUTH_API_USER({ commit }, value) {
       return new Promise((resolve, reject) => {
-        Axios.get('pm/api/user/me/')
+        axiosIns.get('pm/api/user/me/')
           .then(data => {
             commit('mutation__user', data.data)
             resolve(data)
@@ -171,7 +173,7 @@ export default new Vuex.Store({
     },
     API_PREFERENCE({ commit }, value) {
       return new Promise((resolve, reject) => {
-        Axios.get('pm/api/preference')
+        axiosIns.get('pm/api/preference')
           .then(data => {
             commit('mutation__preference', data.data)
             resolve(data)
@@ -183,7 +185,7 @@ export default new Vuex.Store({
     },
     API_APPS_LIST({ commit }, value) {
       return new Promise((resolve, reject) => {
-        Axios.get('pm/api/forms/?fields=id,name')
+        axiosIns.get('pm/api/forms/?fields=id,name')
           .then(data => {
             commit('mutation__apps', data.data)
             resolve(data)
@@ -195,7 +197,7 @@ export default new Vuex.Store({
     },
     API({ commit }, value) {
       return new Promise((resolve, reject) => {
-        Axios.get(`pm/api/${value}`)
+        axiosIns.get(`pm/api/${value}`)
           .then(data => {
             resolve(data)
           })
@@ -221,8 +223,9 @@ export default new Vuex.Store({
         DrawerFilterStore: value.DrawerFilterStore,
         DrawerForm: [],
       })
-      let endpoint = 'get_form'
+      let endpoint = 'forms'
       let type = 'form_name'
+      let addons_url = value.DrawerAddons ? value.DrawerAddons : 'addons/app/api/'
       if (value && value.DrawerFilterForm) {
         type = 'filter_name'
         endpoint = 'get_model_filter'
@@ -231,8 +234,8 @@ export default new Vuex.Store({
         commit(value.DrawerMutation, { DrawerLoader: true, DrawerForm: [] })
 
         return new Promise((resolve, reject) => {
-          Axios.get(
-            `pm/api/forms/${endpoint}/?${type}=${value.DrawerFormType}${
+          axiosIns.get(
+            `${addons_url}/${endpoint}/?${type}=${value.DrawerFormType}${
               value.DrawerExtraParam ? value.DrawerExtraParam : ''
             }`,
           )
@@ -272,7 +275,7 @@ export default new Vuex.Store({
       commit(value.DialogMutation, { DialogForm: [], Loader: true })
       if (value.API_FORM) {
         return new Promise((resolve, reject) => {
-          Axios.get(
+          axiosIns.get(
             `pm/api/forms/get_form/?form_name=${value.FormName}${value.DialogExtraParam ? value.DialogExtraParam : ''}`,
           )
             .then(data => {
@@ -374,5 +377,7 @@ export default new Vuex.Store({
     // Other Store
 
     UsersStore,
+    TodoStore,
+    ProjectStore,
   },
 })

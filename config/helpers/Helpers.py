@@ -49,15 +49,6 @@ def generate_fields(view, model, includeactions=False, id_name="ID", preferences
                     defaultview.append(
                         {"value": field.name, "text": field.verbose_name, "is_default": True})
 
-            elif view == 'ResourceRequestView' and field.name in [
-                'role', 'resource_number', 'allocation', 'start_date', 'end_date', 'resource_cost', 'team'
-            ]:
-                defaultview.append(
-                    {"value": field.name, "text": field.verbose_name, "is_default": True})
-
-            elif view == 'ProjectView' and field.verbose_name in USER_LINK_FIELDS:
-                defaultview.append({"value": field.name, "text": field.verbose_name,
-                                   "is_default": False, 'width': 250})
             else:
                 defaultview.append(
                     {"value": field.name, "text": field.verbose_name, "is_default": False})

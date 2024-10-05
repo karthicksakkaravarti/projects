@@ -122,22 +122,16 @@ export default {
               data: this.$store.state[this.drawer].DrawerForm,
             })
             .then(data => {
-              // this.$emit('success', this.click, data)
-              if (this.$store.state[this.drawer].DrawerFormType == 'NewCustomer') {
-                bus.$emit('customer_form_success', data, this.$store.state[this.drawer].DrawerFormType)
-              } else {
-                bus.$emit(
+              bus.$emit(
                   'form_success',
                   data,
                   this.$store.state[this.drawer].DrawerFormType,
                   this.$store.state[this.drawer].DrawerActionType,
                 )
-              }
-              // this.$store.dispatch('CloseDrawer')
               this.$store.dispatch('DisableDrawerLoader')
             })
             .catch(err => {
-            //   this.$emit('error', this.click, err.response.data)
+              console.log(err)
               this.handleError(this.click, err.response.data)
               this.$store.dispatch('DisableDrawerLoader')
             })
