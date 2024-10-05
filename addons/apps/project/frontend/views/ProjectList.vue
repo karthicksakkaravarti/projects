@@ -21,7 +21,7 @@
               DrawerSize: '30%',
               DrawerFormType: 'projects',
               DrawerFormTitle: 'Create Project',
-              DrawerAddons: 'addons/apps/project/api/projects',
+              DrawerAddons: '/addons/apps/project/api/projects',
               DrawerFormAPICall: true,
               DrawerFilterForm: false,
               DrawerMutation: 'mutation__drawer',
