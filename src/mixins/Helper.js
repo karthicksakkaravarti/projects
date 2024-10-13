@@ -34,75 +34,10 @@ export const Helper = {
             console.log(type, mode)
             if (type == 'project') {
                 // View Dashboard
-                if (mode == 'view'){
-                    this.$router.push({ name: 'Project Dashboard', params: { pid: Detail.id } })
-                    return
-                }
+                this.$router.push({ name: 'Project Dashboard', params: { pid: Detail.id } })
 
-                if (Detail.status === 'DRAFT') {
-                    localStorage.setItem('newProjectID', Detail.id)
-                    this.$store.dispatch('OpenDrawerOnClick', {
-                        ShowAppBarOnDrawer: true,
-                        DrawerSize: '70%',
-                        DrawerFormType: 'NewProject',
-                        DrawerFormTitle: 'Update Project',
-                        DrawerExtraParam: `&action=edit&id=${Detail.id}`,
-                        DrawerFormAPICall: false,
-                        DrawerMutation: 'mutation__drawer',
-                        DrawerActionType: 'edit',
-                        DrawerFormSubmit: {
-                            btn_name: 'Update',
-                            store_action_name: 'ProjectStore/PROJECT_API_PROJECT_POST',
-                            custom_action: 'project_create',
-                        },
-                    })
-                    return;
-                }
-
-                if (Detail.status == '0' || Detail.status == 'BU Head Approval') {
-                    this.$router.push({ name: 'BU Head Approval', params: { pid: Detail.id } })
-                } else if (Detail.status == 1 || Detail.status == 'Need Info') {
-                    this.$store.dispatch('OpenDrawerOnClick', {
-                        ShowAppBarOnDrawer: true,
-                        DrawerSize: '50%',
-                        DrawerFormType: 'NewProject',
-                        DrawerFormTitle: 'Edit Project',
-                        DrawerFormAPICall: true,
-                        DrawerMutation: 'mutation__drawer',
-                        DrawerActionType: 'edit',
-                        DrawerExtraParam: '&pid=' + Detail.id,
-                        DrawerFormSubmit: {
-                        btn_name: 'Update Project',
-                        store_action_name: 'ProjectStore/PROJECT_API_PROJECT_POST',
-                        custom_action: Detail.id + '/project_update',
-                        },
-                    })
-                } else if (Detail.status == 2 || Detail.status == 'Project Planning') {
-                    this.$router.push({ name: 'Project Planning', params: { pid: Detail.id } })
-                } else if (Detail.status == 6 || Detail.status == 'ALM Setup') {
-                    this.$router.push({ name: 'ALM Setup', params: { pid: Detail.id } })
-                } else if (Detail.status == 16 || Detail.status == 'ALM Verification') {
-                    this.$router.push({ name: 'ALM Verification', params: { pid: Detail.id } })
-                } else {
-                    this.$router.push({ name: 'Project Dashboard', params: { pid: Detail.id } })
-                }
-            }
-            if (type == 'users' || type == 'rm_users') {
-                if (Detail.employee_id){
-                    this.$router.push({ name: 'RM User View', params: { id: Detail.employee_id } })
-                }
-                if (Detail.resource_id){
-                    this.$router.push({ name: 'RM User View', params: { id: Detail.resource_id } })
-                }
             }
 
-            if (type === 'time_sheet_approval') {
-                this.$router.push({ name: 'Timesheet', query: {
-                    view: 'Project',
-                    range: `${Detail.start_date}_${Detail.end_date}`,
-                    user: Detail.user.employee_id
-                }});
-            }
         },
         dependencystatusColor (status) {
             if (status == 'Planned') return 'orange'

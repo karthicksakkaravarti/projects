@@ -8,6 +8,14 @@ const projectRoutes = [
       layout: 'content',
     },
   },
+  {
+    path: '/addons/apps/project/:pid/dashboard',
+    name: 'Project Dashboard',
+    component: () => import('@/../addons/apps/project/frontend/views/ProjectDashboard.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
 ]
 
 export default projectRoutes

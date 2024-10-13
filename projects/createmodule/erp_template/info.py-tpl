@@ -1,0 +1,18 @@
+"""
+Module: {{info.name}}
+Author: {{info.author}}
+Description: {{info.description}}
+version: {{info.version}}
+"""
+
+module_info = {
+    "app_name": "{{info.name}}",
+    "author":  "{{info.author}}",
+    "description": "{{info.description}}",
+    "category": "{{info.category}}",
+    "version": "{{info.version}}",
+    "navigation": [
+
+    ],
+    "dependencies": []
+}

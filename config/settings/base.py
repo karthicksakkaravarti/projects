@@ -95,6 +95,7 @@ LOCAL_APPS = [
     "projects.users",
     "projects.installer",
     "projects.setup",
+    "projects.createmodule",
 
     # Your stuff: custom apps go here
 ]

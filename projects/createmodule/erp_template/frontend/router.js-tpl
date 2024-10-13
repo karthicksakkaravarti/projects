@@ -1,0 +1,13 @@
+const {{info.name}}Routes = [
+  {
+    path: '/addons/apps/{{info.name}}',
+    name: '{{info.name}}',
+    component: () => import('@/../addons/apps/{{info.name}}/frontend/views/Landing.vue'),
+
+    meta: {
+      layout: 'content',
+    },
+  },
+]
+
+export default {{info.name}}Routes

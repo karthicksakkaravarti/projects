@@ -7,17 +7,39 @@ class ValueList(serializers.Serializer):
     value = serializers.CharField(allow_blank=True)
 
 
-class ValueField(serializers.Serializer):
-    name = serializers.CharField(allow_blank=True)
-    value = serializers.CharField(allow_blank=True)
+class ValueField(serializers.Field):
 
+    def get_attribute(self, instance):
+        # We pass the object instance onto `to_representation`,
+        # not just the field attribute.
+        return instance
+     
+    def to_representation(self, value):
+        try:
+            print(self.context.get('request', {}))
+            for query, query_value in self.context.get('request', {}).items():
+                print(value.get('dbfield'), query)
+                if value.get('dbfield') == query:
+                    try:
+                        if value.get('itemvalue') == 'id':
+                            return int(query_value)
+                    except Exception as e:
+                        return query_value
+                    return query_value
+            else:
+                return value['value']
+        except Exception as e:
+            print(e)
+            return value['value']
+    def to_internal_value(self, data):
+        return data
 
 class LayoutSeralizers(serializers.Serializer):
     name = serializers.CharField(allow_blank=True)
     fieldtype = serializers.CharField()
     sm = serializers.CharField()
     valuelist = ValueList(many=True)
-    value = serializers.CharField(required=False, allow_blank=True)
+    value = ValueField()
     dbfield = serializers.CharField(allow_blank=True)
     customtable = serializers.BooleanField(required=False)
     customfieldname = serializers.CharField(required=False)

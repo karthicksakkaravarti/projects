@@ -1,0 +1,49 @@
+import axiosIns from '@/plugins/axios.js'
+import { status_color, exception_rest_api_handler, extract_api_data } from '@/helper'
+
+const addons_path = '/addons/apps/{{info.name}}'
+const state = {}
+
+const getters = {}
+
+const mutations = {}
+
+const actions = {
+    GET_{{info.name}}({ commit }, query=''){
+        return new Promise((resolve, reject) => {
+            axiosIns.get(addons_path+ '/api/{{info.name}}/' + query)
+            .then(data => {
+              resolve(data)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        })
+    },
+    CREATE_{{info.name}}({ commit }, payload) {
+        let data = {}
+        if (payload && payload.not_execute_extract) {
+          data = payload.data
+        } else {
+          data = extract_api_data(payload.data ? payload.data : [])
+        }
+        return new Promise((resolve, reject) => {
+          axiosIns.post(`${addons_path}/api/{{info.name}}/`, data)
+            .then(response => {
+              resolve(response)
+            })
+            .catch(error => {
+              reject(error)
+            })
+        })
+    },
+}
+
+export const {{info.name}}Store = {
+    namespaced: true,
+    state,
+    getters,
+    mutations,
+    actions
+}
+  
