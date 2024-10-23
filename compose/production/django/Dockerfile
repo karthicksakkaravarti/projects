@@ -91,6 +91,8 @@ USER django
 RUN DATABASE_URL="" \
   CELERY_BROKER_URL="" \
   DJANGO_SETTINGS_MODULE="config.settings.test" \
+  GITEA_BASE_URL="" \
+  GITEA_TOKEN="" \
   python manage.py compilemessages
 
 ENTRYPOINT ["/entrypoint"]
