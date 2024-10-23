@@ -9,6 +9,7 @@ import app from './app'
 import { UsersStore } from './Users'
 import { TodoStore } from '../../addons/apps/todo/frontend/store.js'
 import { ProjectStore } from '../../addons/apps/project/frontend/store.js'
+import { RepositoriesStore } from '../../addons/apps/repositories/frontend/store.js'
 
 Vue.use(Vuex)
 
@@ -379,5 +380,6 @@ export default new Vuex.Store({
     UsersStore,
     TodoStore,
     ProjectStore,
+    RepositoriesStore
   },
 })

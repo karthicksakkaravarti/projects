@@ -23,7 +23,7 @@ class User(AbstractUser):
     last_name = None  # type: ignore[assignment]
     email = EmailField(_("email address"), unique=True)
     username = None  # type: ignore[assignment]
-
+    gitea_token = CharField(_("Gitea Token"), blank=True, max_length=255)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 

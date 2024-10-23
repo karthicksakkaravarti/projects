@@ -452,6 +452,13 @@
       >
       </slot>
     </template>
+    <template v-slot:item.description="{ item }">
+      <slot
+        name="item-description"
+        :item="item"
+      >
+      </slot>
+    </template>
 
     <!-- No data -->
     <template v-slot:no-data>
@@ -527,7 +534,7 @@ export default {
     type: { default: null },
     title: { default: null },
     extra_param: { default: '&' },
-    project_relation: { default: 'project_details' },
+    project_relation: { default: 'project' },
     no_data_title: { default: 'No Data Available' },
     no_data_description: {
       default:
@@ -638,7 +645,8 @@ export default {
       } else if (this.$route.params.pid) {
         query = this.$route.params.pid
       }
-      let query_param = `?${this.project_relation}=${query}&${this.project_relation}=${query}`
+      console.log("query", query)
+      let query_param = `?${this.project_relation}=${query}&`
       try {
         // Views
         if (value && value.view) {

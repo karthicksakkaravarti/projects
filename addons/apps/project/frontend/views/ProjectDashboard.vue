@@ -65,6 +65,9 @@
 import { mapActions } from 'vuex';
 import Overview from './Overview.vue';
 import Documentation from './Documentation.vue';
+import Tasks from './Tasks.vue';
+import Code from './Code.vue';
+
 export default {
   name: 'ProjectDashboard',
   data() {
@@ -79,8 +82,8 @@ export default {
       tabs: [
         { label: 'Overview', value: 'overview', icon: 'mdi-view-dashboard', component: Overview },
         { label: 'Docs', value: 'documentation', icon: 'mdi-book-open-page-variant', component: Documentation },
-        // { label: 'Tasks', value: 'tasks', icon: 'mdi-checkbox-marked-outline', component: Tasks },
-        // { label: 'Code', value: 'code', icon: 'mdi-source-branch', component: Code },
+        { label: 'Tasks', value: 'tasks', icon: 'mdi-checkbox-marked-outline', component: Tasks },
+        { label: 'Code', value: 'code', icon: 'mdi-source-branch', component: Code },
         // { label: 'CI/CD', value: 'cicd', icon: 'mdi-rocket-launch', component: CiCd },
       ],
     }

@@ -1,24 +1,24 @@
 <template>
 
   <view-list :options="{
-    store_action_name: 'ProjectStore/GET_PROJECTS',
-    filter_table: 'projects',
-  }" type="project">
+    store_action_name: 'RepositoriesStore/GET_repositories',
+    filter_table: 'repositories',
+  }" type="repositories">
     <template v-slot:top-right>
       <Button class="mt-0" :outlined="true" :rounded="true" mdi_icon="mdi-plus" click="OpenDrawerOnClick"
-        title="Create Project" tooltip="Create Project" :options="{
+        title="Create Repo" tooltip="Create Repo" :options="{
           ShowAppBarOnDrawer: true,
           DrawerSize: '30%',
-          DrawerFormType: 'projects',
-          DrawerFormTitle: 'Create Project',
-          DrawerAddons: '/addons/apps/project/api/projects',
+          DrawerFormType: 'repo_form',
+          DrawerFormTitle: 'Create Repo',
+          DrawerAddons: '/addons/apps/repositories/api/repositories',
           DrawerFormAPICall: true,
           DrawerFilterForm: false,
           DrawerMutation: 'mutation__drawer',
           DrawerActionType: 'new',
           DrawerFormSubmit: {
-            btn_name: 'Create Project',
-            store_action_name: 'ProjectStore/CREATE_PROJECT',
+            btn_name: 'Create Repo',
+            store_action_name: 'RepositoriesStore/CREATE_repositories',
             custom_action: '',
             data: '',
           },
@@ -50,7 +50,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('ProjectStore', ['allProjects']),
+    ...mapGetters('RepositoriesStore', ['allProjects']),
     projects() {
       return this.allProjects
     },
@@ -65,7 +65,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('ProjectStore', ['GET_PROJECTS']),
+    ...mapActions('RepositoriesStore', ['GET_PROJECTS']),
     viewProject(id) {
       // Navigate to a detailed view if implemented
       // For now, you can implement a modal or another view

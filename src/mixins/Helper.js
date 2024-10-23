@@ -37,6 +37,11 @@ export const Helper = {
                 this.$router.push({ name: 'Project Dashboard', params: { pid: Detail.id } })
 
             }
+            if (type == 'repositories') {
+                // View Dashboard
+                this.$router.push({ name: 'repository-files', params: { pid: Detail.id } })
+
+            }
 
         },
         dependencystatusColor (status) {
