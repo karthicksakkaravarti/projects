@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
 from addons.apps.tasks.models import Task
-from addons.apps.tasks.rest_api.serializers import TaskSerializer
+from addons.apps.tasks.rest_api.serializers import TaskSerializer, TaskSerializerCreate
 from config.helpers.forms import FormsSerializers, LayoutSeralizers
 from config.helpers.Helpers import global_preferences
 from rest_framework.decorators import action
@@ -18,8 +18,14 @@ class TaskViewSet(viewsets.ModelViewSet):
         if project_id is not None and project_id != '':
             queryset = queryset.filter(project_id=project_id)
         return queryset
-
-
+    
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return TaskSerializerCreate
+        return TaskSerializer
     
     def list(self, request, *args, **kwargs):
         """

@@ -35,6 +35,9 @@
     <template #item-description="{ item }">
       <span v-html="item.description"></span>
     </template>
+    <template #item-created_by="{ item }">
+      <span>{{ item.created_by.email }}</span>
+    </template>
   </view-list>
 
     </v-container>

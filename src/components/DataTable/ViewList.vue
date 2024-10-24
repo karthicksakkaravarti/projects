@@ -146,20 +146,8 @@
       >
       </slot>
     </template>
-    <template v-slot:item.invoice_number="{ item }">
-      <slot
-        name="item-invoice_number"
-        :item="item"
-      >
-      </slot>
-    </template>
-    <template v-slot:item.work_week="{ item }">
-      <slot
-        name="item-work_week"
-        :item="item"
-      >
-      </slot>
-    </template>
+
+
     <template v-slot:item.status="{ item }">
       <slot
         name="item-status"
@@ -181,27 +169,9 @@
       >
       </slot>
     </template>
-    <template v-slot:item.milestone_type="{ item }">
-      <slot
-        name="item-milestone-type"
-        :item="item"
-      >
-      </slot>
-    </template>
-    <template v-slot:item.impacted_milestone="{ item }">
-      <slot
-        name="item-impacted-milestone"
-        :item="item"
-      >
-      </slot>
-    </template>
-    <template v-slot:item.payment_delivery_status="{ item }">
-      <slot
-        name="item-payment-delivery-status"
-        :item="item"
-      >
-      </slot>
-    </template>
+
+
+
     <template v-slot:item.cr="{ item }">
       <slot
         name="item-cr"
@@ -209,27 +179,8 @@
       >
       </slot>
     </template>
-    <template v-slot:item.milestones="{ item }">
-      <slot
-        name="item-milestones"
-        :item="item"
-      >
-      </slot>
-    </template>
-    <template v-slot:item.dependencies="{ item }">
-      <slot
-        name="item-dependencies"
-        :item="item"
-      >
-      </slot>
-    </template>
-    <template v-slot:item.risk="{ item }">
-      <slot
-        name="item-risk"
-        :item="item"
-      >
-      </slot>
-    </template>
+
+
     <template v-slot:item.customer="{ item }">
       <slot
         name="item-customer"
@@ -237,13 +188,7 @@
       >
       </slot>
     </template>
-    <template v-slot:item.CRDetail="{ item }">
-      <slot
-        name="item-CRDetail"
-        :item="item"
-      >
-      </slot>
-    </template>
+
     <template v-slot:item.team="{ item }">
       <slot
         name="item-team"
@@ -266,13 +211,7 @@
       >
       </slot>
     </template>
-    <template v-slot:item.notification_metrix="{ item }">
-      <slot
-        name="item-notification_metrix"
-        :item="item"
-      >
-      </slot>
-    </template>
+
     <template v-slot:item.assert_id="{ item }">
       <slot
         name="item-assert_id"
@@ -296,25 +235,9 @@
       </slot>
     </template>
 
-    <template v-slot:item.hours="{ item }">
-      <slot
-        name="item-hours"
-        :item="item"
-      >
-      </slot>
-    </template>
 
-    <template v-slot:item.resource_name="{ item }">
-      <slot
-        name="item-resource_name"
-        :item="item"
-      >
-        <user-avatar-card
-          :item="item"
-          key-name="resource_name"
-        />
-      </slot>
-    </template>
+
+
 
     <template v-slot:item.responsible="{ item }">
       <slot
@@ -426,24 +349,8 @@
       >
       </slot>
     </template>
-    <template v-slot:item.requester_fullname="{ item }">
-      <slot
-        name="item-requester_fullname"
-        :item="item"
-      >
-      </slot>
-    </template>
-    <template v-slot:item.bu_head="{ item }">
-      <slot
-        name="item-bu_head"
-        :item="item"
-      >
-        <user-avatar-card
-          :item="item.bu_head"
-          key-name="full_name"
-        />
-      </slot>
-    </template>
+
+  
 
     <template v-slot:item.allocation="{ item }">
       <slot
@@ -459,7 +366,13 @@
       >
       </slot>
     </template>
-
+    <template v-slot:item.created_by="{ item }">
+      <slot
+        name="item-created_by"
+        :item="item"
+      >
+      </slot>
+    </template>
     <!-- No data -->
     <template v-slot:no-data>
       <div class="empty-state">
